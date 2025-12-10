@@ -1,153 +1,130 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Tabela Periódica Interativa — 118 elementos</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tabela Periódica Interativa — 118 elementos</title>
+  <style>
+    :root{
+      --bg:#0a1f44; /* fundo azul escuro */
+      --card:#ffffff; /* cards brancos */
+      --muted:#9ca3af;
+      --accent:#0ea5a4;
+      --grid-gap:6px;
+      --cell-w:54px;
+      --cell-h:60px;
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family:Inter, system-ui, Arial, sans-serif;
+      background:var(--bg);
+      margin:0;
+      padding:20px;
+      color:#e5e7eb; /* texto geral claro */
+    }
+    h1{
+      font-size:20px;
+      margin:0 0 6px;
+      text-align:center;
+      color:#f8fafc; /* título claro */
+    }
+    p.lead{
+      margin:0 0 18px;
+      text-align:center;
+      color:#cbd5f5; /* lead claro */
+    }
+    .wrap{max-width:1200px;margin:0 auto}
 
-<style>
-:root{
-  --bg:#0a1f44;
-  --card:#ffffff;
-  --muted:#9ca3af;
-  --accent:#0ea5a4;
-  --grid-gap:6px;
-  --cell-w:54px;
-  --cell-h:60px;
-}
+    .periodic{
+      display:grid;
+      grid-template-columns: repeat(18, var(--cell-w));
+      grid-auto-rows: var(--cell-h);
+      gap:var(--grid-gap);
+      justify-content:center;
+      background:transparent;
+    }
 
-*{box-sizing:border-box}
+    .cell{
+      background:var(--card);
+      border-radius:6px;
+      border:1px solid #e6e9ef;
+      padding:6px 6px 4px 6px;
+      text-align:center;
+      cursor:pointer;
+      display:flex;flex-direction:column;justify-content:space-between;
+      transition:transform .12s ease, box-shadow .12s ease;
+      font-size:12px;
+    }
+    .cell:hover{transform:translateY(-4px);box-shadow:0 6px 18px rgba(2,6,23,.15)}
 
-body{
-  font-family:Inter, system-ui, Arial, sans-serif;
-  background:var(--bg);
-  margin:0;
-  padding:20px;
-  color:#e5e7eb;
-}
+    /* texto dos quadrados em PRETO */
+    .cell,
+    .cell .num,
+    .cell .sym,
+    .cell .name,
+    .f-cell{
+      color:#0f172a;
+    }
 
-h1{
-  font-size:20px;
-  margin:0 0 6px;
-  text-align:center;
-  color:#f8fafc;
-}
+    .num{font-size:11px;color:#475569;text-align:left}
+    .sym{font-weight:700;font-size:17px}
+    .name{font-size:11px;color:#475569}
 
-p.lead{
-  margin:0 0 18px;
-  text-align:center;
-  color:#cbd5f5;
-}
+    /* legend and details */
+    .details{margin-top:18px;background:var(--card);padding:14px;border-radius:8px;border:1px solid #e6e9ef}
+    .details h2{margin:0 0 6px;color:#0f172a} /* título do painel em preto */
+    .details p{margin:6px 0;color:#0f172a}
+    .meta{font-size:13px;color:#475569}
 
-.wrap{max-width:1200px;margin:0 auto}
+    /* modal fallback */
+    .modal{position:fixed;inset:0;background:rgba(2,6,23,.45);display:none;align-items:center;justify-content:center;padding:18px}
+    .modal .box{background:var(--card);border-radius:8px;padding:18px;max-width:720px;width:100%;}
+    .close{position:absolute;right:18px;top:14px;cursor:pointer;font-weight:700}
 
-.periodic{
-  display:grid;
-  grid-template-columns:repeat(18,var(--cell-w));
-  grid-auto-rows:var(--cell-h);
-  gap:var(--grid-gap);
-  justify-content:center;
-}
+    /* lanth/act rows style */
+    .f-blocks{display:grid;grid-template-columns:repeat(15, var(--cell-w));gap:var(--grid-gap);justify-content:center;margin-top:12px}
+    .f-cell{background:var(--card);border-radius:6px;border:1px solid #e6e9ef;padding:6px;text-align:center;font-size:12px}
 
-.cell{
-  background:var(--card);
-  border-radius:6px;
-  border:1px solid #e6e9ef;
-  padding:6px;
-  cursor:pointer;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  font-size:12px;
-  transition:.12s;
-}
+    /* títulos Lantanídeos / Actinídeos em claro */
+    #lanth > div:first-child,
+    #act > div:first-child{
+      text-align:center;
+      color:#f8fafc;
+      font-weight:700;
+      margin-top:10px;
+    }
 
-.cell:hover{
-  transform:translateY(-3px);
-  box-shadow:0 6px 18px rgba(2,6,23,.15);
-}
-
-/* texto da tabela em preto */
-.cell,
-.cell .num,
-.cell .sym,
-.cell .name,
-.f-cell{
-  color:#0f172a;
-}
-
-.num{font-size:11px;color:#475569;text-align:left}
-.sym{font-weight:700;font-size:17px}
-.name{font-size:11px;color:#475569}
-
-.details{
-  margin-top:18px;
-  background:var(--card);
-  padding:14px;
-  border-radius:8px;
-  border:1px solid #e6e9ef;
-}
-
-.details h2{margin:0 0 6px;color:#0f172a}
-.details p{margin:6px 0;color:#0f172a}
-.meta{font-size:13px;color:#475569}
-
-.f-blocks{
-  display:grid;
-  grid-template-columns:repeat(15,var(--cell-w));
-  gap:var(--grid-gap);
-  justify-content:center;
-  margin-top:12px;
-}
-
-.f-cell{
-  background:var(--card);
-  border-radius:6px;
-  border:1px solid #e6e9ef;
-  padding:6px;
-  text-align:center;
-}
-
-#lanth > div:first-child,
-#act > div:first-child{
-  color:#f8fafc;
-  text-align:center;
-  font-weight:700;
-  margin-top:10px;
-}
-
-@media (max-width:900px){
-  :root{--cell-w:44px;--cell-h:52px}
-  .periodic{grid-template-columns:repeat(18,44px)}
-}
-
-@media (max-width:640px){
-  .periodic{grid-template-columns:repeat(9,44px)}
-}
-</style>
+    /* responsive */
+    @media (max-width:900px){:root{--cell-w:44px;--cell-h:52px}.periodic{grid-template-columns:repeat(18,44px)} }
+    @media (max-width:640px){.periodic{grid-template-columns:repeat(9,44px)} }
+  </style>
 </head>
-
 <body>
-<div class="wrap">
-  <h1>Tabela Periódica Interativa</h1>
-  <p class="lead">Clique em qualquer elemento para ver a história resumida de sua descoberta.</p>
+  <div class="wrap">
+    <h1>Tabela Periódica Interativa</h1>
+    <p class="lead">Clique em qualquer elemento para ver a história resumida de sua descoberta. Feito para GitHub Pages — basta colar este arquivo como <code>index.html</code>.</p>
 
-  <div id="periodic" class="periodic"></div>
+    <div id="periodic" class="periodic"></div>
 
-  <div id="details" class="details">
-    <h2>Selecione um elemento</h2>
-    <div class="meta">Clique em um bloco da tabela para ver a história da descoberta.</div>
+    <div style="display:flex;gap:12px;justify-content:center;margin-top:12px;flex-wrap:wrap">
+      <div style="font-size:13px;color:var(--muted)">Legenda: número atômico • símbolo • nome</div>
+    </div>
+
+    <div style="margin-top:18px" class="details" id="details">
+      <h2>Selecione um elemento</h2>
+      <div class="meta">Clique em um bloco da tabela para ver a história da descoberta (resumos em português).</div>
+    </div>
+
+    <div style="margin-top:16px; text-align:center; color:#cbd5f5; font-size:13px">Lantanídeos e Actinídeos estão separados abaixo na ordem convencional.</div>
+
+    <div id="lanth" style="margin-top:12px"></div>
+    <div id="act" style="margin-top:12px"></div>
+
   </div>
 
-  <div style="margin-top:16px;text-align:center;color:#cbd5f5;font-size:13px">
-    Lantanídeos e Actinídeos estão separados abaixo na ordem convencional.
-  </div>
+  <div id="modal" class="modal"><div class="box"><span class="close" onclick="fecharModal()">×</span><div id="modalContent"></div></div></div>
 
-  <div id="lanth"></div>
-  <div id="act"></div>
-</div>
-
-<script>
+  <script>
   // Full dataset with positions (period, group). For f-block we'll list period as 8 (lanth) and 9 (act).
   const ELEMENTS = [
     {z:1,s:'H',name:'Hidrogênio',period:1,group:1, hist:'Identificado por Henry Cavendish em 1766; Lavoisier nomeou o elemento hidrogène (hidrogênio) em 1783.'},
@@ -236,7 +213,7 @@ p.lead{
     {z:84,s:'Po',name:'Polônio',period:6,group:16, hist:'Descoberto por Marie e Pierre Curie em 1898; elemento radioativo.'},
     {z:85,s:'At',name:'Astato',period:6,group:17, hist:'Elemento altamente radioativo identificado em 1940.'},
     {z:86,s:'Rn',name:'Radônio',period:6,group:18, hist:'Gás radioativo identificado no início do século XX.'},
-    {z:87,s:'Fr',name:'Frâncio',period:7,group:1, hist:'Descoberto por Marguerite Perey em 1939; altamente radioativo.'},
+    {z:87,s:'Fr',name:'Frâncio',period:7,group:1, hist:'Descoberto por Marguerite Perey em 1939; altamente radioactivo.'},
     {z:88,s:'Ra',name:'Rádio',period:7,group:2, hist:'Descoberto por Marie e Pierre Curie em 1898.'},
     {z:89,s:'Ac',name:'Actínio',period:7,group:3, hist:'Descoberto por Debierne em 1899; dá nome à série dos actinídeos.'},
     {z:90,s:'Th',name:'Tório',period:7,group:3, hist:'Identificado por Berzelius em 1829.'},
@@ -270,39 +247,86 @@ p.lead{
     {z:118,s:'Og',name:'Oganessônio',period:7,group:18, hist:'Nome em homenagem a Yuri Oganessian; confirmado por sínteses modernas.'}
   ];
 
- const grid=document.getElementById('periodic');
-const pos={};
-ELEMENTS.forEach(e=>{if(e.period<=7)pos[`${e.period}-${e.group}`]=e});
+  // Render main table
+  const grid = document.getElementById('periodic');
 
-for(let r=1;r<=7;r++){
-  for(let c=1;c<=18;c++){
-    const cell=document.createElement('div');
-    cell.className='cell';
-    const e=pos[`${r}-${c}`];
-    if(e){
-      cell.innerHTML=`<div class="num">${e.z}</div><div class="sym">${e.s}</div><div class="name">${e.name}</div>`;
-      cell.onclick=()=>showDetails(e);
-    }else{
-      cell.style.visibility='hidden';
+  // create empty placeholders to align positions (18 cols x 7 rows)
+  const rows = 7; const cols = 18;
+  // create map by position
+  const pos = {};
+  ELEMENTS.forEach(e=>{ if(e.period<=7) pos[`${e.period}-${e.group}`]=e });
+
+  for(let r=1;r<=7;r++){
+    for(let c=1;c<=18;c++){
+      const key = `${r}-${c}`;
+      const e = pos[key];
+      const cell = document.createElement('div');
+      cell.className='cell';
+      if(e){
+        cell.innerHTML = `<div class="num">${e.z}</div><div class="sym">${e.s}</div><div class="name">${e.name}</div>`;
+        cell.onclick = ()=>showDetails(e);
+      } else {
+        // empty placeholder
+        cell.style.visibility='hidden';
+      }
+      // set grid position
+      cell.style.gridColumn = c;
+      cell.style.gridRow = r;
+      grid.appendChild(cell);
     }
-    cell.style.gridColumn=c;
-    cell.style.gridRow=r;
-    grid.appendChild(cell);
   }
-}
 
-/* ==========================
-   DETALHES
-   ========================== */
-function showDetails(e){
-  details.innerHTML=`<h2>${e.name} (${e.s})</h2>
-  <div class="meta">Número atômico: ${e.z}</div>
-  <p>${e.hist}</p>`;
-}
+  // Render f-blocks: lanthanides and actinides (rows under the main table)
+  const lanth = document.getElementById('lanth');
+  const act = document.getElementById('act');
+  // header labels
+  const hL = document.createElement('div'); hL.style.textAlign='center'; hL.style.marginTop='8px'; hL.innerHTML='<strong>Lantanídeos</strong>';
+  const hA = document.createElement('div'); hA.style.textAlign='center'; hA.style.marginTop='8px'; hA.innerHTML='<strong>Actinídeos</strong>';
+  lanth.appendChild(hL);
+  act.appendChild(hA);
 
-showDetails(ELEMENTS[0]);
-</script>
+  const lanthRow = document.createElement('div'); lanthRow.className='f-blocks';
+  const actRow = document.createElement('div'); actRow.className='f-blocks';
 
+  // lanthanides: 57-71
+  for(let z=57; z<=71; z++){
+    const e = ELEMENTS.find(x=>x.z===z);
+    const f = document.createElement('div'); f.className='f-cell';
+    f.innerHTML = `<div style="font-size:11px;color:var(--muted)">${e.z}</div><div style="font-weight:700">${e.s}</div><div style="font-size:11px;color:var(--muted)">${e.name}</div>`;
+    f.onclick = ()=>showDetails(e);
+    lanthRow.appendChild(f);
+  }
+
+  // actinides: 89-103
+  for(let z=89; z<=103; z++){
+    const e = ELEMENTS.find(x=>x.z===z);
+    const f = document.createElement('div'); f.className='f-cell';
+    f.innerHTML = `<div style="font-size:11px;color:var(--muted)">${e.z}</div><div style="font-weight:700">${e.s}</div><div style="font-size:11px;color:var(--muted)">${e.name}</div>`;
+    f.onclick = ()=>showDetails(e);
+    actRow.appendChild(f);
+  }
+
+  lanth.appendChild(lanthRow);
+  act.appendChild(actRow);
+
+  function showDetails(e){
+    const details = document.getElementById('details');
+    details.innerHTML = `<h2>${e.name} (${e.s})</h2><div class="meta">Número atômico: ${e.z} — Período ${e.period} — Grupo ${e.group}</div><p>${e.hist}</p>`;
+  }
+
+  // modal functions (not used currently, but provided)
+  function abrirModal(html){
+    document.getElementById('modalContent').innerHTML = html;
+    document.getElementById('modal').style.display='flex';
+  }
+  function fecharModal(){
+    document.getElementById('modal').style.display='none';
+  }
+  window.fecharModal = fecharModal;
+
+  // initial select hydrogen
+  showDetails(ELEMENTS[0]);
+  </script>
 </body>
 </html>
 
