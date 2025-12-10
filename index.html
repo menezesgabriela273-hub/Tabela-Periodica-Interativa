@@ -1,295 +1,91 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tabela Periódica Interativa — 118 elementos</title>
+  <meta charset="UTF-8">
+  <title>Tabela Periódica Interativa</title>
   <style>
-    :root{
-      --bg:#f5f7fa;--card:#fff;--muted:#6b7280;--accent:#0ea5a4;
-      --grid-gap:6px; --cell-w:54px; --cell-h:60px;
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      text-align: center;
     }
-    *{box-sizing:border-box}
-    body{font-family:Inter, system-ui, Arial, sans-serif; background:var(--bg); margin:0; padding:20px; color:#0f172a}
-    h1{font-size:20px;margin:0 0 6px;text-align:center}
-    p.lead{margin:0 0 18px;text-align:center;color:var(--muted)}
-    .wrap{max-width:1200px;margin:0 auto}
-
-    .periodic{
-      display:grid;
-      grid-template-columns: repeat(18, var(--cell-w));
-      grid-auto-rows: var(--cell-h);
-      gap:var(--grid-gap);
-      justify-content:center;
-      background:transparent;
+    h1 {
+      margin-top: 20px;
     }
-
-    .cell{
-      background:var(--card);
-      border-radius:6px;
-      border:1px solid #e6e9ef;
-      padding:6px 6px 4px 6px;
-      text-align:center;
-      cursor:pointer;
-      display:flex;flex-direction:column;justify-content:space-between;
-      transition:transform .12s ease, box-shadow .12s ease;
-      font-size:12px;
+    .tabela {
+      display: grid;
+      grid-template-columns: repeat(18, 60px);
+      gap: 5px;
+      justify-content: center;
+      margin-top: 30px;
     }
-    .cell:hover{transform:translateY(-4px);box-shadow:0 6px 18px rgba(2,6,23,.08)}
-    .num{font-size:11px;color:var(--muted);text-align:left}
-    .sym{font-weight:700;font-size:17px}
-    .name{font-size:11px;color:var(--muted)}
-
-    /* legend and details */
-    .details{margin-top:18px;background:var(--card);padding:14px;border-radius:8px;border:1px solid #e6e9ef}
-    .details h2{margin:0 0 6px}
-    .details p{margin:6px 0;color:#111827}
-    .meta{font-size:13px;color:var(--muted)}
-
-    /* modal fallback */
-    .modal{position:fixed;inset:0;background:rgba(2,6,23,.45);display:none;align-items:center;justify-content:center;padding:18px}
-    .modal .box{background:var(--card);border-radius:8px;padding:18px;max-width:720px;width:100%;}
-    .close{position:absolute;right:18px;top:14px;cursor:pointer;font-weight:700}
-
-    /* lanth/act rows style */
-    .f-blocks{display:grid;grid-template-columns:repeat(15, var(--cell-w));gap:var(--grid-gap);justify-content:center;margin-top:12px}
-    .f-cell{background:var(--card);border-radius:6px;border:1px solid #e6e9ef;padding:6px;text-align:center;font-size:12px}
-
-    /* responsive */
-    @media (max-width:900px){:root{--cell-w:44px;--cell-h:52px}.periodic{grid-template-columns:repeat(18,44px)} }
-    @media (max-width:640px){.periodic{grid-template-columns:repeat(9,44px)} }
+    .elemento {
+      background: white;
+      border: 1px solid #999;
+      border-radius: 6px;
+      padding: 4px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .elemento strong {
+      font-size: 16px;
+      display: block;
+    }
+    .vazio {
+      visibility: hidden;
+    }
+    .info {
+      margin-top: 30px;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Tabela Periódica Interativa</h1>
-    <p class="lead">Clique em qualquer elemento para ver a história resumida de sua descoberta. Feito para GitHub Pages — basta colar este arquivo como <code>index.html</code>.</p>
 
-    <div id="periodic" class="periodic"></div>
+<h1>Tabela Periódica Interativa</h1>
+<p>Clique em um elemento químico para ver informações básicas</p>
 
-    <div style="display:flex;gap:12px;justify-content:center;margin-top:12px;flex-wrap:wrap">
-      <div style="font-size:13px;color:var(--muted)">Legenda: número atômico • símbolo • nome</div>
-    </div>
+<div class="tabela">
+  <!-- Período 1 -->
+  <div class="elemento" onclick="info('H')"><small>1</small><strong>H</strong>Hidrogênio</div>
+  <div class="vazio"></div><div class="vazio"></div><div class="vazio"></div><div class="vazio"></div>
+  <div class="vazio"></div><div class="vazio"></div><div class="vazio"></div><div class="vazio"></div>
+  <div class="vazio"></div><div class="vazio"></div><div class="vazio"></div><div class="vazio"></div>
+  <div class="vazio"></div><div class="vazio"></div><div class="vazio"></div>
+  <div class="elemento" onclick="info('He')"><small>2</small><strong>He</strong>Hélio</div>
 
-    <div style="margin-top:18px" class="details" id="details">
-      <h2>Selecione um elemento</h2>
-      <div class="meta">Clique em um bloco da tabela para ver a história da descoberta (resumos em português).</div>
-    </div>
+  <!-- Período 2 -->
+  <div class="elemento" onclick="info('Li')"><small>3</small><strong>Li</strong>Lítio</div>
+  <div class="elemento" onclick="info('Be')"><small>4</small><strong>Be</strong>Berílio</div>
+  <div class="vazio"></div><div class="vazio"></div><div class="vazio"></div>
+  <div class="vazio"></div><div class="vazio"></div><div class="vazio"></div>
+  <div class="vazio"></div><div class="vazio"></div>
+  <div class="elemento" onclick="info('B')"><small>5</small><strong>B</strong>Boro</div>
+  <div class="elemento" onclick="info('C')"><small>6</small><strong>C</strong>Carbono</div>
+  <div class="elemento" onclick="info('N')"><small>7</small><strong>N</strong>Nitrogênio</div>
+  <div class="elemento" onclick="info('O')"><small>8</small><strong>O</strong>Oxigênio</div>
+  <div class="elemento" onclick="info('F')"><small>9</small><strong>F</strong>Flúor</div>
+  <div class="elemento" onclick="info('Ne')"><small>10</small><strong>Ne</strong>Neônio</div>
 
-    <div style="margin-top:16px; text-align:center; color:var(--muted); font-size:13px">Lantanídeos e Actinídeos estão separados abaixo na ordem convencional.</div>
-
-    <div id="lanth" style="margin-top:12px"></div>
-    <div id="act" style="margin-top:12px"></div>
-
+  <!-- Períodos seguintes resumidos (exemplo acadêmico) -->
+  <!-- Último elemento -->
+  <div class="elemento" style="grid-column: 18;" onclick="info('Og')">
+    <small>118</small><strong>Og</strong>Oganessônio
   </div>
+</div>
 
-  <div id="modal" class="modal"><div class="box"><span class="close" onclick="fecharModal()">×</span><div id="modalContent"></div></div></div>
+<div class="info" id="info">
+  <strong>Informações do elemento aparecerão aqui.</strong>
+</div>
 
-  <script>
-  // Full dataset with positions (period, group). For f-block we'll list period as 8 (lanth) and 9 (act).
-  const ELEMENTS = [
-    {z:1,s:'H',name:'Hidrogênio',period:1,group:1, hist:'Identificado por Henry Cavendish em 1766; Lavoisier nomeou o elemento hidrogène (hidrogênio) em 1783.'},
-    {z:2,s:'He',name:'Hélio',period:1,group:18, hist:'Detectado no espectro solar por Janssen e Lockyer em 1868; isolado na Terra por William Ramsay.'},
-    {z:3,s:'Li',name:'Lítio',period:2,group:1, hist:'Descoberto por Johan Aug. Arfwedson em 1817; isolado por Humphry Davy em 1818.'},
-    {z:4,s:'Be',name:'Berílio',period:2,group:2, hist:'Identificado como um óxido distinto por Vauquelin (1797); isolado por Wöhler e Bussy em 1828.'},
-    {z:5,s:'B',name:'Boro',period:2,group:13, hist:'Compostos conhecidos desde antiguidade; elemento isolado no século XIX por métodos químicos.'},
-    {z:6,s:'C',name:'Carbono',period:2,group:14, hist:'Conhecido desde tempos pré-históricos (carvão, grafite, diamante).'},
-    {z:7,s:'N',name:'Nitrogênio',period:2,group:15, hist:'Isolado por Daniel Rutherford em 1772; Lavoisier clarificou sua natureza.'},
-    {z:8,s:'O',name:'Oxigênio',period:2,group:16, hist:'Descoberto por Priestley e Scheele no século XVIII; Lavoisier explicou seu papel na combustão.'},
-    {z:9,s:'F',name:'Flúor',period:2,group:17, hist:'Compostos conhecidos; elemento livre isolado por Henri Moissan em 1886.'},
-    {z:10,s:'Ne',name:'Neônio',period:2,group:18, hist:'Descoberto por William Ramsay e Morris Travers em 1898.'},
-    {z:11,s:'Na',name:'Sódio',period:3,group:1, hist:'Conhecido em compostos (sal) desde antiguidade; isolado por Humphry Davy em 1807.'},
-    {z:12,s:'Mg',name:'Magnésio',period:3,group:2, hist:'Presente em minerais; isolado por Davy em 1808.'},
-    {z:13,s:'Al',name:'Alumínio',period:3,group:13, hist:'Primeira produção por Ørsted (1825) e Wöhler; tornou-se viável industrialmente mais tarde.'},
-    {z:14,s:'Si',name:'Silício',period:3,group:14, hist:'Isolado por Berzelius em 1824; compostos usados desde a antiguidade.'},
-    {z:15,s:'P',name:'Fósforo',period:3,group:15, hist:'Descoberto por Hennig Brand em 1669 ao destilar urina; notável pelo brilho.'},
-    {z:16,s:'S',name:'Enxofre',period:3,group:16, hist:'Conhecido desde a antiguidade e usado em medicina e alquimia.'},
-    {z:17,s:'Cl',name:'Cloro',period:3,group:17, hist:'Descoberto por Scheele em 1774; Davy identificou-o como elemento.'},
-    {z:18,s:'Ar',name:'Argônio',period:3,group:18, hist:'Descoberto por Rayleigh e Ramsay em 1894.'},
-    {z:19,s:'K',name:'Potássio',period:4,group:1, hist:'Isolado por Humphry Davy em 1807 por eletrólise.'},
-    {z:20,s:'Ca',name:'Cálcio',period:4,group:2, hist:'Conhecido como calcário/hidróxidos; isolado por Davy em 1808.'},
-    {z:21,s:'Sc',name:'Escândio',period:4,group:3, hist:'Descoberto por Nilson em 1879; nome refere-se à Escandinávia.'},
-    {z:22,s:'Ti',name:'Titânio',period:4,group:4, hist:'Identificado por William Gregor em 1791; isolado por Berzelius.'},
-    {z:23,s:'V',name:'Vanádio',period:4,group:5, hist:'Reconhecido por Sefström em 1830; antes foi confundido com outros minerais.'},
-    {z:24,s:'Cr',name:'Cromo',period:4,group:6, hist:'Descoberto por Vauquelin em 1797 ao estudar minerais coloridos.'},
-    {z:25,s:'Mn',name:'Manganês',period:4,group:7, hist:'Conhecido em óxidos e minerais; isolado como elemento no século XVIII.'},
-    {z:26,s:'Fe',name:'Ferro',period:4,group:8, hist:'Metal utilizado desde a Idade do Ferro; conhecido milênios.'},
-    {z:27,s:'Co',name:'Cobalto',period:4,group:9, hist:'Elemento conhecido por suas cores em pigmentos; isolado por Brandt em 1735.'},
-    {z:28,s:'Ni',name:'Níquel',period:4,group:10, hist:'Descoberto por Cronstedt em 1751.'},
-    {z:29,s:'Cu',name:'Cobre',period:4,group:11, hist:'Metal conhecido desde a pré-história; usado em moedas e ligas.'},
-    {z:30,s:'Zn',name:'Zinco',period:4,group:12, hist:'Usado em ligas como latão; isolado e trabalhado historicamente.'},
-    {z:31,s:'Ga',name:'Gálio',period:4,group:13, hist:'Descoberto por Lecoq de Boisbaudran em 1875; previsto por Mendeleev.'},
-    {z:32,s:'Ge',name:'Germânio',period:4,group:14, hist:'Descoberto por Clemens Winkler em 1886; previsto por Mendeleev.'},
-    {z:33,s:'As',name:'Arsênio',period:4,group:15, hist:'Conhecido desde a antiguidade em compostos; usado por alquimistas.'},
-    {z:34,s:'Se',name:'Selênio',period:4,group:16, hist:'Descoberto por Berzelius em 1817 em resíduos industriais.'},
-    {z:35,s:'Br',name:'Bromo',period:4,group:17, hist:'Descoberto por Balard e Löwig em 1826-1827.'},
-    {z:36,s:'Kr',name:'Criptônio',period:4,group:18, hist:'Descoberto por Ramsay e Travers em 1898.'},
-    {z:37,s:'Rb',name:'Rubídio',period:5,group:1, hist:'Descoberto por Bunsen e Kirchhoff em 1861 via espectroscopia.'},
-    {z:38,s:'Sr',name:'Estrôncio',period:5,group:2, hist:'Nomeado após Strontian (Escócia); reconhecido no século XVIII.'},
-    {z:39,s:'Y',name:'Ítrio',period:5,group:3, hist:'Descoberto por Gadolin em 1794 em minério de Ytterby.'},
-    {z:40,s:'Zr',name:'Zircônio',period:5,group:4, hist:'Conhecido em minerais; isolado como metal no século XIX.'},
-    {z:41,s:'Nb',name:'Nióbio',period:5,group:5, hist:'Descoberto por Hatchett em 1801; também chamado colúmbio historicamente.'},
-    {z:42,s:'Mo',name:'Molibdênio',period:5,group:6, hist:'Conhecido em minerais; isolado como elemento no século XIX.'},
-    {z:43,s:'Tc',name:'Tecnécio',period:5,group:7, hist:'Primeiro elemento sintético (1937) por Perrier e Segrè.'},
-    {z:44,s:'Ru',name:'Rutênio',period:5,group:8, hist:'Descoberto por Karl Claus em 1844.'},
-    {z:45,s:'Rh',name:'Ródio',period:5,group:9, hist:'Descoberto por Wollaston em 1803.'},
-    {z:46,s:'Pd',name:'Paládio',period:5,group:10, hist:'Descoberto por Wollaston em 1803.'},
-    {z:47,s:'Ag',name:'Prata',period:5,group:11, hist:'Conhecida e usada desde a antiguidade.'},
-    {z:48,s:'Cd',name:'Cádmio',period:5,group:12, hist:'Descoberto por Stromeyer em 1817 como impureza em carbonato de zinco.'},
-    {z:49,s:'In',name:'Índio',period:5,group:13, hist:'Descoberto por Reich e Richter em 1863 via espectroscopia.'},
-    {z:50,s:'Sn',name:'Estanho',period:5,group:14, hist:'Metal conhecido desde a antiguidade; usado em ligas como bronze.'},
-    {z:51,s:'Sb',name:'Antimônio',period:5,group:15, hist:'Conhecido desde a antiguidade; usado por alquimistas.'},
-    {z:52,s:'Te',name:'Telúrio',period:5,group:16, hist:'Identificado nos minerais e nomeado no século XVIII.'},
-    {z:53,s:'I',name:'Iodo',period:5,group:17, hist:'Descoberto por Bernard Courtois em 1811.'},
-    {z:54,s:'Xe',name:'Xenônio',period:5,group:18, hist:'Descoberto por Ramsay e Travers em 1898.'},
-    {z:55,s:'Cs',name:'Césio',period:6,group:1, hist:'Descoberto por Bunsen e Kirchhoff em 1860 via espectroscopia.'},
-    {z:56,s:'Ba',name:'Bário',period:6,group:2, hist:'Detectado em minerais; isolado no século XIX.'},
-    {z:57,s:'La',name:'Lantânio',period:6,group:3, hist:'Descoberto por Mosander em 1839; começa a série dos lantanoides.'},
-    {z:58,s:'Ce',name:'Cério',period:6,group:3, hist:'Descoberto no início do século XIX; nomeado após o asteroide Ceres.'},
-    {z:59,s:'Pr',name:'Praseodímio',period:6,group:3, hist:'Separado por Auer von Welsbach em 1885 de misturas de terras raras.'},
-    {z:60,s:'Nd',name:'Neodímio',period:6,group:3, hist:'Também separado por Auer von Welsbach em 1885.'},
-    {z:61,s:'Pm',name:'Promécio',period:6,group:3, hist:'Elemento radioativo sintético identificado em 1945.'},
-    {z:62,s:'Sm',name:'Samário',period:6,group:3, hist:'Descoberto por Marignac no século XIX.'},
-    {z:63,s:'Eu',name:'Európio',period:6,group:3, hist:'Identificado por Demarçay em 1901.'},
-    {z:64,s:'Gd',name:'Gadolínio',period:6,group:3, hist:'Descoberto no século XIX; nome homenageia Gadolin.'},
-    {z:65,s:'Tb',name:'Térbio',period:6,group:3, hist:'Identificado a partir de minerais contendo terras raras.'},
-    {z:66,s:'Dy',name:'Disprósio',period:6,group:3, hist:'Descoberto por Lecoq de Boisbaudran em 1886.'},
-    {z:67,s:'Ho',name:'Hólmio',period:6,group:3, hist:'Descoberto por Cleve em 1878; nome refere-se a Estocolmo.'},
-    {z:68,s:'Er',name:'Érbio',period:6,group:3, hist:'Descoberto por Mosander em 1843; nome ligado a Ytterby.'},
-    {z:69,s:'Tm',name:'Túlio',period:6,group:3, hist:'Descoberto por Cleve em 1879.'},
-    {z:70,s:'Yb',name:'Itérbio',period:6,group:3, hist:'Identificado por Marignac em 1878.'},
-    {z:71,s:'Lu',name:'Lutécio',period:6,group:3, hist:'Descoberto por Urbain em 1907; nome refere-se a Lutetia (Paris).'},
-    {z:72,s:'Hf',name:'Háfnio',period:6,group:4, hist:'Descoberto por Coster e Hevesy em 1923; nome refere-se a Copenhague.'},
-    {z:73,s:'Ta',name:'Tântalo',period:6,group:5, hist:'Descoberto por Ekeberg em 1802.'},
-    {z:74,s:'W',name:'Tungstênio',period:6,group:6, hist:'Identificado em compostos e isolado no fim do séc. XVIII; símbolo W (wolfram).'},
-    {z:75,s:'Re',name:'Rénio',period:6,group:7, hist:'Descoberto por Noddack, Noddack e Berg em 1925.'},
-    {z:76,s:'Os',name:'Ósmio',period:6,group:8, hist:'Descoberto por Tennant em 1803.'},
-    {z:77,s:'Ir',name:'Irídio',period:6,group:9, hist:'Descoberto por Tennant em 1803.'},
-    {z:78,s:'Pt',name:'Platina',period:6,group:10, hist:'Conhecida e usada desde o século XVI; estudada por químicos no século XVIII.'},
-    {z:79,s:'Au',name:'Ouro',period:6,group:11, hist:'Metal conhecido desde a antiguidade; usado para moedas e ornamentos.'},
-    {z:80,s:'Hg',name:'Mercúrio',period:6,group:12, hist:'Conhecido e usado desde a antiguidade (cinábrio, alquimia).'},
-    {z:81,s:'Tl',name:'Tálio',period:6,group:13, hist:'Descoberto por Crookes em 1861 via espectroscopia.'},
-    {z:82,s:'Pb',name:'Chumbo',period:6,group:14, hist:'Metal conhecido desde a antiguidade; amplamente utilizado historicamente.'},
-    {z:83,s:'Bi',name:'Bismuto',period:6,group:15, hist:'Conhecido desde a Idade Média; reconhecido como elemento distinto no séc. XVIII.'},
-    {z:84,s:'Po',name:'Polônio',period:6,group:16, hist:'Descoberto por Marie e Pierre Curie em 1898; elemento radioativo.'},
-    {z:85,s:'At',name:'Astato',period:6,group:17, hist:'Elemento altamente radioativo identificado em 1940.'},
-    {z:86,s:'Rn',name:'Radônio',period:6,group:18, hist:'Gás radioativo identificado no início do século XX.'},
-    {z:87,s:'Fr',name:'Frâncio',period:7,group:1, hist:'Descoberto por Marguerite Perey em 1939; altamente radioativo.'},
-    {z:88,s:'Ra',name:'Rádio',period:7,group:2, hist:'Descoberto por Marie e Pierre Curie em 1898.'},
-    {z:89,s:'Ac',name:'Actínio',period:7,group:3, hist:'Descoberto por Debierne em 1899; dá nome à série dos actinídeos.'},
-    {z:90,s:'Th',name:'Tório',period:7,group:3, hist:'Identificado por Berzelius em 1829.'},
-    {z:91,s:'Pa',name:'Protactínio',period:7,group:3, hist:'Reconhecido no início do século XX; nome alterado historicamente.'},
-    {z:92,s:'U',name:'Urânio',period:7,group:3, hist:'Descoberto por Klaproth em 1789; nomeado após o planeta Urano.'},
-    {z:93,s:'Np',name:'Netúnio',period:7,group:3, hist:'Primeiro transurânico sintetizado (1940) por McMillan e Abelson.'},
-    {z:94,s:'Pu',name:'Plutônio',period:7,group:3, hist:'Sintetizado por Seaborg e equipe em 1940.'},
-    {z:95,s:'Am',name:'Amerício',period:7,group:3, hist:'Sintetizado em 1944; nome em homenagem às Américas.'},
-    {z:96,s:'Cm',name:'Cúrio',period:7,group:3, hist:'Descoberto por Seaborg et al. em 1944; nome em homenagem aos Curie.'},
-    {z:97,s:'Bk',name:'Berquélio',period:7,group:3, hist:'Sintetizado em Berkeley em 1949.'},
-    {z:98,s:'Cf',name:'Califórnio',period:7,group:3, hist:'Descoberto em 1950; nomeado em homenagem à Califórnia.'},
-    {z:99,s:'Es',name:'Einstênio',period:7,group:3, hist:'Sintetizado em 1952; nome em homenagem a Einstein.'},
-    {z:100,s:'Fm',name:'Férmio',period:7,group:3, hist:'Descoberto em resíduos de testes nucleares (1952); nome em homenagem a Enrico Fermi.'},
-    {z:101,s:'Md',name:'Mendelévio',period:7,group:3, hist:'Sintetizado em 1955; nome em homenagem a Mendeleev.'},
-    {z:102,s:'No',name:'Nobélio',period:7,group:3, hist:'Descoberto em 1958; nomeado em homenagem a Alfred Nobel.'},
-    {z:103,s:'Lr',name:'Laurêncio',period:7,group:3, hist:'Descoberto em 1961; nome em homenagem a Lawrence.'},
-    {z:104,s:'Rf',name:'Rutherfordium',period:7,group:4, hist:'Primeiras reivindicações nas décadas de 1960-70; nome em homenagem a Rutherford.'},
-    {z:105,s:'Db',name:'Dubnium',period:7,group:5, hist:'Elemento transactinídeo com disputas de descoberta; nome refere-se a Dubna.'},
-    {z:106,s:'Sg',name:'Seabórgio',period:7,group:6, hist:'Sintetizado e nomeado em homenagem a Glenn Seaborg.'},
-    {z:107,s:'Bh',name:'Bóhrio',period:7,group:7, hist:'Nome em homenagem a Niels Bohr.'},
-    {z:108,s:'Hs',name:'Hássio',period:7,group:8, hist:'Descoberto em Darmstadt em 1984; nome refere-se a Hesse.'},
-    {z:109,s:'Mt',name:'Meitnério',period:7,group:9, hist:'Nome em homenagem a Lise Meitner.'},
-    {z:110,s:'Ds',name:'Darmstácio',period:7,group:10, hist:'Sintetizado em Darmstadt.'},
-    {z:111,s:'Rg',name:'Roentgênio',period:7,group:11, hist:'Nome em homenagem a Röntgen.'},
-    {z:112,s:'Cn',name:'Copernício',period:7,group:12, hist:'Confirmado por síntese; nome em homenagem a Copérnico.'},
-    {z:113,s:'Nh',name:'Nihônio',period:7,group:13, hist:'Nome refere-se ao Japão (Nihon); síntese confirmada.'},
-    {z:114,s:'Fl',name:'Fleróvio',period:7,group:14, hist:'Nome em homenagem a Georgy Flyorov; sintetizado em Dubna.'},
-    {z:115,s:'Mc',name:'Moscóvio',period:7,group:15, hist:'Nome refere-se a Moscou; sintetizado em laboratórios russos.'},
-    {z:116,s:'Lv',name:'Livermório',period:7,group:16, hist:'Nome em homenagem ao Lawrence Livermore Lab.'},
-    {z:117,s:'Ts',name:'Tenessino',period:7,group:17, hist:'Nome refere-se ao estado do Tennessee; sintetizado por colaborações.'},
-    {z:118,s:'Og',name:'Oganessônio',period:7,group:18, hist:'Nome em homenagem a Yuri Oganessian; confirmado por sínteses modernas.'}
-  ];
-
-  // Render main table
-  const grid = document.getElementById('periodic');
-
-  // create empty placeholders to align positions (18 cols x 7 rows)
-  const rows = 7; const cols = 18;
-  // create map by position
-  const pos = {};
-  ELEMENTS.forEach(e=>{ if(e.period<=7) pos[`${e.period}-${e.group}`]=e });
-
-  for(let r=1;r<=7;r++){
-    for(let c=1;c<=18;c++){
-      const key = `${r}-${c}`;
-      const e = pos[key];
-      const cell = document.createElement('div');
-      cell.className='cell';
-      if(e){
-        cell.innerHTML = `<div class="num">${e.z}</div><div class="sym">${e.s}</div><div class="name">${e.name}</div>`;
-        cell.onclick = ()=>showDetails(e);
-      } else {
-        // empty placeholder
-        cell.style.visibility='hidden';
-      }
-      // set grid position
-      cell.style.gridColumn = c;
-      cell.style.gridRow = r;
-      grid.appendChild(cell);
-    }
+<script>
+  function info(simbolo) {
+    document.getElementById("info").innerHTML =
+      "Elemento químico selecionado: <strong>" + simbolo + "</strong>";
   }
+</script>
 
-  // Render f-blocks: lanthanides and actinides (rows under the main table)
-  const lanth = document.getElementById('lanth');
-  const act = document.getElementById('act');
-  // header labels
-  const hL = document.createElement('div'); hL.style.textAlign='center'; hL.style.marginTop='8px'; hL.innerHTML='<strong>Lantanídeos</strong>';
-  const hA = document.createElement('div'); hA.style.textAlign='center'; hA.style.marginTop='8px'; hA.innerHTML='<strong>Actinídeos</strong>';
-  lanth.appendChild(hL);
-  act.appendChild(hA);
-
-  const lanthRow = document.createElement('div'); lanthRow.className='f-blocks';
-  const actRow = document.createElement('div'); actRow.className='f-blocks';
-
-  // lanthanides: 57-71
-  for(let z=57; z<=71; z++){
-    const e = ELEMENTS.find(x=>x.z===z);
-    const f = document.createElement('div'); f.className='f-cell';
-    f.innerHTML = `<div style="font-size:11px;color:var(--muted)">${e.z}</div><div style="font-weight:700">${e.s}</div><div style="font-size:11px;color:var(--muted)">${e.name}</div>`;
-    f.onclick = ()=>showDetails(e);
-    lanthRow.appendChild(f);
-  }
-
-  // actinides: 89-103
-  for(let z=89; z<=103; z++){
-    const e = ELEMENTS.find(x=>x.z===z);
-    const f = document.createElement('div'); f.className='f-cell';
-    f.innerHTML = `<div style="font-size:11px;color:var(--muted)">${e.z}</div><div style="font-weight:700">${e.s}</div><div style="font-size:11px;color:var(--muted)">${e.name}</div>`;
-    f.onclick = ()=>showDetails(e);
-    actRow.appendChild(f);
-  }
-
-  lanth.appendChild(lanthRow);
-  act.appendChild(actRow);
-
-  function showDetails(e){
-    const details = document.getElementById('details');
-    details.innerHTML = `<h2>${e.name} (${e.s})</h2><div class="meta">Número atômico: ${e.z} — Período ${e.period} — Grupo ${e.group}</div><p>${e.hist}</p>`;
-  }
-
-  // modal functions (not used currently, but provided)
-  function abrirModal(html){
-    document.getElementById('modalContent').innerHTML = html;
-    document.getElementById('modal').style.display='flex';
-  }
-  function fecharModal(){
-    document.getElementById('modal').style.display='none';
-  }
-  window.fecharModal = fecharModal;
-
-  // initial select hydrogen
-  showDetails(ELEMENTS[0]);
-  </script>
 </body>
 </html>
-
 
 
